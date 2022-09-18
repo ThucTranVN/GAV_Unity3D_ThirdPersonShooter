@@ -8,6 +8,7 @@ public class ActiveWeapon : MonoBehaviour
     public Transform crossHairTarget;
     public Rig handIK;
     public Transform weaponParent;
+
     private Weapon weapon;
 
     void Start()

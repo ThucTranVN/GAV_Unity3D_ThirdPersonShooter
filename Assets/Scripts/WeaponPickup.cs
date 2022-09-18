@@ -11,8 +11,8 @@ public class WeaponPickup : MonoBehaviour
         ActiveWeapon activeWeapon = other.gameObject.GetComponent<ActiveWeapon>();
         if (activeWeapon)
         {
-            Weapon weapon = Instantiate(weaponPrefab);
-            activeWeapon.EquipWeapon(weapon);
+            Weapon newWeapon = Instantiate(weaponPrefab);
+            activeWeapon.EquipWeapon(newWeapon);
         }
     }
 }
