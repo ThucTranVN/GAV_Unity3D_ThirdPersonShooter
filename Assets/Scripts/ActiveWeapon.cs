@@ -1,13 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Animations.Rigging;
 
 public class ActiveWeapon : MonoBehaviour
 {
     public Transform crossHairTarget;
-    public Rig handIK;
     public Transform weaponParent;
+    public Animator rigController;
 
     private Weapon weapon;
 
@@ -40,10 +39,12 @@ public class ActiveWeapon : MonoBehaviour
             {
                 weapon.StopFiring();
             }
-        }
-        else
-        {
-            handIK.weight = 0.0f;
+
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                bool isHolsterd = rigController.GetBool("holster_pistol");
+                rigController.SetBool("holster_pistol", !isHolsterd); //toggle
+            }
         }
     }
 
@@ -60,6 +61,6 @@ public class ActiveWeapon : MonoBehaviour
         weapon.transform.localPosition = Vector3.zero;
         weapon.transform.localRotation = Quaternion.identity;
 
-        handIK.weight = 1.0f;
+        rigController.Play("equip_" + weapon.weaponName);
     }
 }
