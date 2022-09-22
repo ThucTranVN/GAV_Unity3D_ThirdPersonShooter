@@ -12,6 +12,7 @@ public class Weapon : MonoBehaviour
         public TrailRenderer tracer;
     }
 
+    public ActiveWeapon.WeaponSlot weaponSlot;
     public bool isFiring = false;
     public int fireRate = 25;
     public float bulletSpeed = 1000f;
@@ -102,6 +103,13 @@ public class Weapon : MonoBehaviour
 
             bullet.tracer.transform.position = hitInfo.point;
             bullet.time = maxLifeTime;
+            end = hitInfo.point;
+
+            var rb = hitInfo.collider.GetComponent<Rigidbody>();
+            if (rb)
+            {
+                rb.AddForceAtPosition(ray.direction * 2, hitInfo.point, ForceMode.Impulse);
+            }
         }
         else
         {
