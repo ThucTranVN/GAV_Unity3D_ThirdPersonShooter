@@ -23,12 +23,18 @@ public class Weapon : MonoBehaviour
     public Transform raycastOrigin;
     public Transform raycastDestination;
     public string weaponName;
+    public WeaponRecoil weaponRecoil;
 
     private Ray ray;
     private RaycastHit hitInfo;
     private float accumulatedTime;
     private List<Bullet> bullets = new List<Bullet>();
     private float maxLifeTime = 3.0f;
+
+    void Awake()
+    {
+        weaponRecoil = GetComponent<WeaponRecoil>();
+    }
 
     private Vector3 GetPosition(Bullet bullet)
     {
@@ -55,6 +61,7 @@ public class Weapon : MonoBehaviour
         isFiring = true;
         accumulatedTime = 0.0f;
         FireBullet();
+        weaponRecoil.Reset();
     }
 
     public void UpdateFiring(float deltaTime)
@@ -111,10 +118,7 @@ public class Weapon : MonoBehaviour
                 rb.AddForceAtPosition(ray.direction * 2, hitInfo.point, ForceMode.Impulse);
             }
         }
-        else
-        {
-            bullet.tracer.transform.position = end;
-        }
+        bullet.tracer.transform.position = end;
     }
 
     private void FireBullet()
@@ -128,21 +132,7 @@ public class Weapon : MonoBehaviour
         var bullet = CreateBullet(raycastOrigin.position, velocity);
         bullets.Add(bullet);
 
-        //ray.origin = raycastOrigin.position;
-        //ray.direction = raycastDestination.position - raycastOrigin.position;
-
-        //var bulletTracer = Instantiate(tracerEffect, ray.origin, Quaternion.identity);
-        //bulletTracer.AddPosition(ray.origin);
-
-        //if (Physics.Raycast(ray, out hitInfo))
-        //{
-        //    //Debug.DrawLine(ray.origin, hitInfo.point, Color.red, 1.0f);
-        //    hitEffect.transform.position = hitInfo.point;
-        //    hitEffect.transform.forward = hitInfo.normal;
-        //    hitEffect.Emit(1);
-
-        //    bulletTracer.transform.position = hitInfo.point;
-        //}
+        weaponRecoil.GenerateRecoil(weaponName);
     }
 
     public void StopFiring()

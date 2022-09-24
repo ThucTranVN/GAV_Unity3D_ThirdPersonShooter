@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class ActiveWeapon : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class ActiveWeapon : MonoBehaviour
     public Transform crossHairTarget;
     public Animator rigController;
     public Transform[] weaponSlots;
+    public CinemachineFreeLook playerCamera;
 
     private Weapon[] equipedWeapons = new Weapon[2];
     private int activeWeaponIndex;
@@ -41,7 +43,7 @@ public class ActiveWeapon : MonoBehaviour
         var weapon = GetWeapon(activeWeaponIndex);
         if (weapon && !isHolstered)
         {
-            if (Input.GetButton("Fire1"))
+            if (Input.GetButtonDown("Fire1"))
             {
                 weapon.StartFiring();
             }
@@ -53,7 +55,7 @@ public class ActiveWeapon : MonoBehaviour
 
             weapon.UpdateBullet(Time.deltaTime);
 
-            if (Input.GetButton("Fire1"))
+            if (Input.GetButtonUp("Fire1"))
             {
                 weapon.StopFiring();
             }            
@@ -86,6 +88,8 @@ public class ActiveWeapon : MonoBehaviour
 
         weapon = newWeapon;
         weapon.raycastDestination = crossHairTarget;
+        weapon.weaponRecoil.playerCamera = playerCamera;
+        weapon.weaponRecoil.rigController = rigController;
         weapon.transform.SetParent(weaponSlots[weaponSlotIndex],false);
         equipedWeapons[weaponSlotIndex] = weapon;
 
