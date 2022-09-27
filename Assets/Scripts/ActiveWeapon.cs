@@ -15,6 +15,7 @@ public class ActiveWeapon : MonoBehaviour
     public Animator rigController;
     public Transform[] weaponSlots;
     public CinemachineFreeLook playerCamera;
+    public AmmoUI ammoUI;
 
     private Weapon[] equipedWeapons = new Weapon[2];
     private int activeWeaponIndex;
@@ -27,6 +28,11 @@ public class ActiveWeapon : MonoBehaviour
         {
             EquipWeapon(existWeapon);
         }
+    }
+
+    public Weapon GetActiveWeapon()
+    {
+        return GetWeapon(activeWeaponIndex);
     }
 
     private Weapon GetWeapon(int index)
@@ -94,6 +100,7 @@ public class ActiveWeapon : MonoBehaviour
         equipedWeapons[weaponSlotIndex] = weapon;
 
         SetActiveWeapon(newWeapon.weaponSlot);
+        ammoUI.Refresh(weapon.ammoCount);
     }
 
     private void ToggleActiveWeapon()

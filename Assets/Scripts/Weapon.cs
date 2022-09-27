@@ -24,6 +24,9 @@ public class Weapon : MonoBehaviour
     public Transform raycastDestination;
     public string weaponName;
     public WeaponRecoil weaponRecoil;
+    public GameObject weaponMagazine;
+    public int ammoCount;
+    public int ammoSize;
 
     private Ray ray;
     private RaycastHit hitInfo;
@@ -123,6 +126,11 @@ public class Weapon : MonoBehaviour
 
     private void FireBullet()
     {
+        if(ammoCount <= 0)
+        {
+            return;
+        }
+        ammoCount--;
         for (int i = 0; i < muzzleFlash.Length; i++)
         {
             muzzleFlash[i].Emit(1);

@@ -83,8 +83,8 @@ MonoBehaviour:
   weaponSlot: 1
   isFiring: 0
   fireRate: 1
-  bulletSpeed: 1000
-  bulletDrop: 300
+  bulletSpeed: 500
+  bulletDrop: 50
   muzzleFlash:
   - {fileID: 43703706485936121}
   - {fileID: 43423686727880543}
@@ -94,6 +94,9 @@ MonoBehaviour:
   raycastDestination: {fileID: 0}
   weaponName: pistol
   weaponRecoil: {fileID: 0}
+  weaponMagazine: {fileID: 0}
+  ammoCount: 15
+  ammoSize: 15
 --- !u!114 &2843679527591695003
 MonoBehaviour:
   m_ObjectHideFlags: 0
