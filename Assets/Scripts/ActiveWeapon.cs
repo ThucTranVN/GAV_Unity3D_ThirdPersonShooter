@@ -49,22 +49,7 @@ public class ActiveWeapon : MonoBehaviour
         var weapon = GetWeapon(activeWeaponIndex);
         if (weapon && !isHolstered)
         {
-            if (Input.GetButtonDown("Fire1"))
-            {
-                weapon.StartFiring();
-            }
-
-            if (weapon.isFiring)
-            {
-                weapon.UpdateFiring(Time.deltaTime);
-            }
-
-            weapon.UpdateBullet(Time.deltaTime);
-
-            if (Input.GetButtonUp("Fire1"))
-            {
-                weapon.StopFiring();
-            }            
+            weapon.UpdateWeapon(Time.deltaTime);
         }
 
         if (Input.GetKeyDown(KeyCode.X))
@@ -162,6 +147,7 @@ public class ActiveWeapon : MonoBehaviour
                 yield return new WaitForEndOfFrame();
             } while (rigController.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
             isHolstered = false;
+            ammoUI.Refresh(weapon.ammoCount);
         }
     }
 }

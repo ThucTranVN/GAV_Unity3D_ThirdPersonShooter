@@ -59,15 +59,14 @@ public class Weapon : MonoBehaviour
         return bullet;
     }
 
-    public void StartFiring()
+    private void StartFiring()
     {
         isFiring = true;
         accumulatedTime = 0.0f;
-        FireBullet();
         weaponRecoil.Reset();
     }
 
-    public void UpdateFiring(float deltaTime)
+    private void UpdateFiring(float deltaTime)
     {
         accumulatedTime += deltaTime;
         float fireInterval = 1.0f / fireRate;
@@ -78,7 +77,7 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    public void UpdateBullet(float deltaTime)
+    private void UpdateBullet(float deltaTime)
     {
         SimulateBullet(deltaTime);
         DestroyBullet();
@@ -143,8 +142,28 @@ public class Weapon : MonoBehaviour
         weaponRecoil.GenerateRecoil(weaponName);
     }
 
-    public void StopFiring()
+    private void StopFiring()
     {
         isFiring = false;
+    }
+
+    public void UpdateWeapon(float deltaTime)
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            StartFiring();
+        }
+
+        if (isFiring)
+        {
+            UpdateFiring(deltaTime);
+        }
+
+        UpdateBullet(deltaTime);
+
+        if (Input.GetButtonUp("Fire1"))
+        {
+            StopFiring();
+        }
     }
 }
