@@ -30,6 +30,16 @@ public class ActiveWeapon : MonoBehaviour
         }
     }
 
+    public bool IsFiring()
+    {
+        Weapon currentWeapon = GetActiveWeapon();
+        if (!currentWeapon)
+        {
+            return false;
+        }
+        return currentWeapon.isFiring;
+    }
+
     public Weapon GetActiveWeapon()
     {
         return GetWeapon(activeWeaponIndex);

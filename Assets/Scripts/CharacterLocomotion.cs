@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CharacterLocomotion : MonoBehaviour
 {
+    public Animator rigController;
     public float jumpHeight;
     public float gravity;
     public float stepDown;
@@ -14,15 +15,20 @@ public class CharacterLocomotion : MonoBehaviour
 
     private CharacterController characterController;
     private Animator playerAnimator;
+    private ActiveWeapon activeWeapon;
+    private WeaponReload weaponReload;
     private Vector2 playerInput;
     private Vector3 rootMotion;
     private Vector3 velocity;
     private bool isJumping;
+    private int isSprintingParam = Animator.StringToHash("isSprinting");
     
     void Start()
     {
         playerAnimator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
+        activeWeapon = GetComponent<ActiveWeapon>();
+        weaponReload = GetComponent<WeaponReload>();
     }
 
     void Update()
@@ -32,6 +38,8 @@ public class CharacterLocomotion : MonoBehaviour
 
         playerAnimator.SetFloat("InputX", playerInput.x);
         playerAnimator.SetFloat("InputY", playerInput.y);
+
+        UpdateIsSprinting();
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -72,6 +80,22 @@ public class CharacterLocomotion : MonoBehaviour
 
         // Apply the push
         body.velocity = pushDir * pushPower;
+    }
+
+    private bool IsSprinting()
+    {
+        bool isSprinting = Input.GetKey(KeyCode.LeftShift);
+        bool isFiring = activeWeapon.IsFiring();
+        bool isReloading = weaponReload.isReloading;
+        return isSprinting && !isFiring && !isReloading;
+    }
+
+    private void UpdateIsSprinting()
+    {
+        bool isSprinting = IsSprinting();
+        Debug.Log($"isSprinting & isFiring: {isSprinting}");
+        playerAnimator.SetBool(isSprintingParam, isSprinting);
+        rigController.SetBool(isSprintingParam, isSprinting);
     }
 
     private void UpdateOnGround()
