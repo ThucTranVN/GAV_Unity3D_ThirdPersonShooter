@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class PopupSetting : BasePopup
 {
+    public override void Show(object data)
+    {
+        base.Show(data);
+    }
+
     public override void Hide()
     {
         base.Hide();
@@ -13,4 +18,6 @@ public class PopupSetting : BasePopup
     {
         this.Hide();
     }
+
+    
 }

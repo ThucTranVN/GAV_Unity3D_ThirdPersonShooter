@@ -43,10 +43,12 @@ public class SingletonMonoBehaviour<T> : MonoBehaviour where T : SingletonMonoBe
         if (instance == null)
         {
             instance = (T)this;
+            DontDestroyOnLoad(this);
             return true;
         }
         else if (instance == this)
         {
+            DontDestroyOnLoad(this);
             return true;
         }
 
