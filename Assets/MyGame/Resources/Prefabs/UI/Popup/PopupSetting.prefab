@@ -50,6 +50,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e296235efb1e544a89849065b38edc17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sliderBGM: {fileID: 5797031275650757274}
+  sliderEffect: {fileID: 5797031276022614601}
 --- !u!1 &5797031274830997085
 GameObject:
   m_ObjectHideFlags: 0
@@ -1959,7 +1961,19 @@ MonoBehaviour:
   m_Value: 0.358
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 438778980909732936}
+        m_TargetAssemblyTypeName: PopupSetting, Assembly-CSharp
+        m_MethodName: OnBGMValueChange
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5797031275652204735
 GameObject:
   m_ObjectHideFlags: 0
@@ -3072,7 +3086,19 @@ MonoBehaviour:
   m_Value: 0.735
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 438778980909732936}
+        m_TargetAssemblyTypeName: PopupSetting, Assembly-CSharp
+        m_MethodName: OnEffectValueChange
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5797031276083783682
 GameObject:
   m_ObjectHideFlags: 0
@@ -5856,7 +5882,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4410373000881651096}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 438778980909732936}
+        m_TargetAssemblyTypeName: PopupSetting, Assembly-CSharp
+        m_MethodName: OnApplySetting
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7919845601984928982
 GameObject:
   m_ObjectHideFlags: 0
@@ -5923,7 +5961,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Logout
+  m_text: Apply
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d9b454495b7d24a7a933eb61bdfa0607, type: 2}
   m_sharedMaterial: {fileID: 7409485994217783921, guid: d9b454495b7d24a7a933eb61bdfa0607, type: 2}
