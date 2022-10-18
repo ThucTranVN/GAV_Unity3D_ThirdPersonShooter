@@ -93,7 +93,6 @@ public class CharacterLocomotion : MonoBehaviour
     private void UpdateIsSprinting()
     {
         bool isSprinting = IsSprinting();
-        Debug.Log($"isSprinting & isFiring: {isSprinting}");
         playerAnimator.SetBool(isSprintingParam, isSprinting);
         rigController.SetBool(isSprintingParam, isSprinting);
     }

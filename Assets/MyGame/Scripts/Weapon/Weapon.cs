@@ -17,6 +17,7 @@ public class Weapon : MonoBehaviour
     public int fireRate = 25;
     public float bulletSpeed = 1000f;
     public float bulletDrop = 0f;
+    public float damage = 10f;
     public ParticleSystem[] muzzleFlash;
     public ParticleSystem hitEffect;
     public TrailRenderer tracerEffect;
@@ -118,6 +119,12 @@ public class Weapon : MonoBehaviour
             if (rb)
             {
                 rb.AddForceAtPosition(ray.direction * 2, hitInfo.point, ForceMode.Impulse);
+            }
+
+            var hitBox = hitInfo.collider.GetComponent<HitBox>();
+            if (hitBox)
+            {
+                hitBox.OnRaycastHit(this, ray.direction);
             }
         }
         bullet.tracer.transform.position = end;

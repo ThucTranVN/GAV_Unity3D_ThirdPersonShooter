@@ -86,6 +86,7 @@ MonoBehaviour:
   fireRate: 1
   bulletSpeed: 500
   bulletDrop: 50
+  damage: 5
   muzzleFlash:
   - {fileID: 43703706485936121}
   - {fileID: 43423686727880543}
