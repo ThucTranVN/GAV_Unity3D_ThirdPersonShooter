@@ -7,10 +7,9 @@ public class EnemyHealth : MonoBehaviour
     [HideInInspector]
     public float currentHealth;
     public float blinkDuration = 0.1f;
-    public float dieForce = 10f;
 
     [SerializeField]
-    private Ragdoll ragdoll;
+    private AIAgent agent;
     [SerializeField]
     private SkinnedMeshRenderer skinnedMeshRenderer;
     [SerializeField]
@@ -18,7 +17,7 @@ public class EnemyHealth : MonoBehaviour
 
     void Start()
     {
-        ragdoll = GetComponent<Ragdoll>();
+        agent = GetComponent<AIAgent>();
         skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         healthBar = GetComponentInChildren<AIHealthBar>();
         currentHealth = maxHealth;
@@ -49,10 +48,9 @@ public class EnemyHealth : MonoBehaviour
 
     private void Die(Vector3 direction)
     {
-        ragdoll.ActiveRagdoll();
-        direction.y = 1;
-        ragdoll.ApplyForce(direction * dieForce);
-        healthBar.Deactive();
+        AIDeathState deathState = agent.stateMachine.GetState(AIStateID.Death) as AIDeathState;
+        deathState.direction = direction;
+        agent.stateMachine.ChangeState(AIStateID.Death);
     }
 
     private IEnumerator EnemyFlash()
