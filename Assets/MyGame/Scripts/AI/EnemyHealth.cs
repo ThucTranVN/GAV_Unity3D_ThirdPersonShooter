@@ -7,15 +7,20 @@ public class EnemyHealth : MonoBehaviour
     [HideInInspector]
     public float currentHealth;
     public float blinkDuration = 0.1f;
+    public float dieForce = 10f;
 
+    [SerializeField]
     private Ragdoll ragdoll;
+    [SerializeField]
     private SkinnedMeshRenderer skinnedMeshRenderer;
-
+    [SerializeField]
+    private AIHealthBar healthBar;
 
     void Start()
     {
         ragdoll = GetComponent<Ragdoll>();
         skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+        healthBar = GetComponentInChildren<AIHealthBar>();
         currentHealth = maxHealth;
         SetUp();
     }
@@ -33,17 +38,21 @@ public class EnemyHealth : MonoBehaviour
     public void TakeDamage(float amount, Vector3 direction)
     {
         currentHealth -= amount;
+        healthBar.SetHealthBarPercentage(currentHealth / maxHealth);
         if(currentHealth <= 0f)
         {
-            Die();
+            Die(direction);
             return;
         }
         StartCoroutine(EnemyFlash());
     }
 
-    private void Die()
+    private void Die(Vector3 direction)
     {
         ragdoll.ActiveRagdoll();
+        direction.y = 1;
+        ragdoll.ApplyForce(direction * dieForce);
+        healthBar.Deactive();
     }
 
     private IEnumerator EnemyFlash()
