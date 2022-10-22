@@ -12,6 +12,7 @@ public class AIDeathState : AIState
         direction.y = 1;
         agent.ragdoll.ApplyForce(direction * agent.config.dieForce);
         agent.healthBar.Deactive();
+        agent.aiWeapon.DropWeapon();
     }
 
     public void Exit(AIAgent agent)

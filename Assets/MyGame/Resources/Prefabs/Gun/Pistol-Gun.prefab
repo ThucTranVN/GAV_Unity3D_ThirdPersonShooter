@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 169448529242776335}
   - component: {fileID: 2843679527591695003}
   - component: {fileID: 7690162671555493568}
+  - component: {fileID: 9172018607547694897}
   m_Layer: 0
   m_Name: Pistol-Gun
   m_TagString: Untagged
@@ -170,6 +171,19 @@ MonoBehaviour:
     m_DissipationDistance: 100
     m_PropagationSpeed: 343
   m_DefaultVelocity: {x: 0, y: -1, z: 0}
+--- !u!65 &9172018607547694897
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169448529242776330}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.10127932, y: 0.3028079, z: 0.42272002}
+  m_Center: {x: -0.006160587, y: -0.15087663, z: 0.46197006}
 --- !u!1 &169448530503652374
 GameObject:
   m_ObjectHideFlags: 0
