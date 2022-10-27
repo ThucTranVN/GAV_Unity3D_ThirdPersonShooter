@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 169448529164933526}
+  - component: {fileID: 1245988120051610657}
   m_Layer: 0
   m_Name: RaycastOrigin
   m_TagString: Untagged
@@ -31,6 +32,18 @@ Transform:
   m_Father: {fileID: 169448529242776329}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1245988120051610657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169448529164933527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6801ac9588197404e99babd484b58ae9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &169448529242776330
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,12 +107,14 @@ MonoBehaviour:
   hitEffect: {fileID: 42972683413525059}
   tracerEffect: {fileID: 6161174460553932562, guid: 7c08fec4273ed4d16ad44b808cfb18a7, type: 3}
   raycastOrigin: {fileID: 169448529164933526}
-  raycastDestination: {fileID: 0}
   weaponName: pistol
   weaponRecoil: {fileID: 0}
   weaponMagazine: {fileID: 1110123379852062410}
   ammoCount: 15
   ammoSize: 15
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 257
 --- !u!114 &2843679527591695003
 MonoBehaviour:
   m_ObjectHideFlags: 0

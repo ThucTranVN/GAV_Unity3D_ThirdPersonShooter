@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 169448529242776335}
   - component: {fileID: -3513190380113596134}
   - component: {fileID: 3177409174328945570}
+  - component: {fileID: 4874832155169903209}
   m_Layer: 0
   m_Name: Laser-Gun
   m_TagString: Untagged
@@ -168,18 +169,21 @@ MonoBehaviour:
   fireRate: 10
   bulletSpeed: 1000
   bulletDrop: 300
+  damage: 10
   muzzleFlash:
   - {fileID: 43703706485936121}
   - {fileID: 43423686727880543}
   hitEffect: {fileID: 42972683413525059}
   tracerEffect: {fileID: 6161174460553932562, guid: 7c08fec4273ed4d16ad44b808cfb18a7, type: 3}
   raycastOrigin: {fileID: 169448529164933526}
-  raycastDestination: {fileID: 0}
   weaponName: laser
   weaponRecoil: {fileID: 0}
   weaponMagazine: {fileID: 5886997690344070800}
   ammoCount: 30
   ammoSize: 30
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 257
 --- !u!114 &-3513190380113596134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,6 +270,19 @@ MonoBehaviour:
     m_DissipationDistance: 100
     m_PropagationSpeed: 343
   m_DefaultVelocity: {x: 0, y: -1, z: 0}
+--- !u!65 &4874832155169903209
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169448529242776330}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.089424804, y: 0.3541792, z: 1.0811961}
+  m_Center: {x: 0.008533224, y: -0.11790824, z: 0.45679605}
 --- !u!1 &169448530503652374
 GameObject:
   m_ObjectHideFlags: 0

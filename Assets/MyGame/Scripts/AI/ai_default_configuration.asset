@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxTime: 0.5
   minDistance: 0.5
-  dieForce: 10
+  dieForce: 2
   maxSightDistance: 5

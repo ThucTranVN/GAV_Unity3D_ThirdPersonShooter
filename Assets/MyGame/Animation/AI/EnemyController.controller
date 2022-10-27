@@ -194,13 +194,13 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Equip
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -217,7 +217,7 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: Weapon Layer
     m_StateMachine: {fileID: -4027476588443336057}
-    m_Mask: {fileID: 0}
+    m_Mask: {fileID: 31900000, guid: 509f39beac622454fb74864ab18b94d1, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0

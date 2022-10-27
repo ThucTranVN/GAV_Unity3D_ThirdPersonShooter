@@ -13,8 +13,8 @@ TagManager:
   - UI
   - PickUp
   - Character
-  - 
-  - 
+  - Hitbox
+  - PostProcessing
   - 
   - 
   - 

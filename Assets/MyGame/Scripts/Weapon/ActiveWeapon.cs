@@ -15,6 +15,7 @@ public class ActiveWeapon : MonoBehaviour
     public Animator rigController;
     public Transform[] weaponSlots;
     public CinemachineFreeLook playerCamera;
+    public WeaponReload reload;
     public AmmoUI ammoUI;
 
     private Weapon[] equipedWeapons = new Weapon[2];
@@ -24,6 +25,7 @@ public class ActiveWeapon : MonoBehaviour
     void Start()
     {
         Weapon existWeapon = GetComponentInChildren<Weapon>();
+        reload = GetComponent<WeaponReload>();
         if (existWeapon)
         {
             EquipWeapon(existWeapon);
@@ -57,9 +59,21 @@ public class ActiveWeapon : MonoBehaviour
     private void Update()
     {
         var weapon = GetWeapon(activeWeaponIndex);
-        if (weapon && !isHolstered)
+        bool notSprinting = rigController.GetCurrentAnimatorStateInfo(2).shortNameHash == Animator.StringToHash("notSprinting");
+        bool canFire = !isHolstered && notSprinting && !reload.isReloading;
+        if (weapon)
         {
-            weapon.UpdateWeapon(Time.deltaTime);
+            if (Input.GetButton("Fire1") && canFire && !weapon.isFiring)
+            {
+                weapon.StartFiring();
+            }
+
+            weapon.UpdateWeapon(Time.deltaTime, crossHairTarget.position);
+
+            if (Input.GetButtonUp("Fire1") || !canFire)
+            {
+                weapon.StopFiring();
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.X))
@@ -88,7 +102,6 @@ public class ActiveWeapon : MonoBehaviour
         }
 
         weapon = newWeapon;
-        weapon.raycastDestination = crossHairTarget;
         weapon.weaponRecoil.playerCamera = playerCamera;
         weapon.weaponRecoil.rigController = rigController;
         weapon.transform.SetParent(weaponSlots[weaponSlotIndex],false);
@@ -158,6 +171,18 @@ public class ActiveWeapon : MonoBehaviour
             } while (rigController.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f);
             isHolstered = false;
             ammoUI.Refresh(weapon.ammoCount);
+        }
+    }
+
+    public void DropWeapon()
+    {
+        var currentWeapon = GetActiveWeapon();
+        if (currentWeapon)
+        {
+            currentWeapon.transform.SetParent(null);
+            currentWeapon.gameObject.GetComponent<BoxCollider>().enabled = true;
+            currentWeapon.gameObject.AddComponent<Rigidbody>();
+            equipedWeapons[activeWeaponIndex] = null;
         }
     }
 }

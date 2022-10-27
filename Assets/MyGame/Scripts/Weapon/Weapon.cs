@@ -22,12 +22,12 @@ public class Weapon : MonoBehaviour
     public ParticleSystem hitEffect;
     public TrailRenderer tracerEffect;
     public Transform raycastOrigin;
-    public Transform raycastDestination;
     public string weaponName;
     public WeaponRecoil weaponRecoil;
     public GameObject weaponMagazine;
     public int ammoCount;
     public int ammoSize;
+    public LayerMask layerMask;
 
     private Ray ray;
     private RaycastHit hitInfo;
@@ -60,20 +60,23 @@ public class Weapon : MonoBehaviour
         return bullet;
     }
 
-    private void StartFiring()
+    public void StartFiring()
     {
         isFiring = true;
-        accumulatedTime = 0.0f;
+        if(accumulatedTime > 0.0f)
+        {
+            accumulatedTime = 0.0f;
+        }
         weaponRecoil.Reset();
     }
 
-    private void UpdateFiring(float deltaTime)
+    private void UpdateFiring(float deltaTime, Vector3 target)
     {
         accumulatedTime += deltaTime;
         float fireInterval = 1.0f / fireRate;
         while(accumulatedTime >= 0.0f)
         {
-            FireBullet();
+            FireBullet(target);
             accumulatedTime -= fireInterval;
         }
     }
@@ -105,7 +108,7 @@ public class Weapon : MonoBehaviour
         float distance = direction.magnitude;
         ray.origin = start;
         ray.direction = direction;
-        if (Physics.Raycast(ray, out hitInfo, distance))
+        if (Physics.Raycast(ray, out hitInfo, distance, layerMask))
         {
             hitEffect.transform.position = hitInfo.point;
             hitEffect.transform.forward = hitInfo.normal;
@@ -130,7 +133,7 @@ public class Weapon : MonoBehaviour
         bullet.tracer.transform.position = end;
     }
 
-    private void FireBullet()
+    private void FireBullet(Vector3 target)
     {
         if(ammoCount <= 0)
         {
@@ -142,35 +145,27 @@ public class Weapon : MonoBehaviour
             muzzleFlash[i].Emit(1);
         }
 
-        Vector3 velocity = (raycastDestination.position - raycastOrigin.position).normalized * bulletSpeed;
+        Vector3 velocity = (target - raycastOrigin.position).normalized * bulletSpeed;
         var bullet = CreateBullet(raycastOrigin.position, velocity);
         bullets.Add(bullet);
 
         weaponRecoil.GenerateRecoil(weaponName);
     }
 
-    private void StopFiring()
+    public void StopFiring()
     {
         isFiring = false;
     }
 
-    public void UpdateWeapon(float deltaTime)
+    public void UpdateWeapon(float deltaTime, Vector3 target)
     {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            StartFiring();
-        }
-
         if (isFiring)
         {
-            UpdateFiring(deltaTime);
+            UpdateFiring(deltaTime, target);
         }
+
+        accumulatedTime += deltaTime;
 
         UpdateBullet(deltaTime);
-
-        if (Input.GetButtonUp("Fire1"))
-        {
-            StopFiring();
-        }
     }
 }

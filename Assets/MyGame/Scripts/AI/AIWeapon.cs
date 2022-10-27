@@ -4,14 +4,41 @@ using UnityEngine;
 
 public class AIWeapon : MonoBehaviour
 {
+    public float inAccurary = 0.0f;
     private Weapon currentWeapon;
     private Animator animator;
     private MeshSocketController socketController;
+    private AIWeaponIK weaponIK;
+    private Transform currentTarget;
+    private bool weaponActive = false;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
         socketController = GetComponent<MeshSocketController>();
+        weaponIK = GetComponent<AIWeaponIK>();
+    }
+
+    private void Update()
+    {
+        if(currentTarget && currentWeapon && weaponActive)
+        {
+            Vector3 target = currentTarget.position + weaponIK.targetOffset;
+            target += Random.insideUnitSphere * inAccurary;
+            currentWeapon.UpdateWeapon(Time.deltaTime, target);
+        }
+    }
+
+    public void SetFiring(bool enabled)
+    {
+        if (enabled)
+        {
+            currentWeapon.StartFiring();
+        }
+        else
+        {
+            currentWeapon.StopFiring();
+        }
     }
 
     public void EquipWeapon(Weapon weapon)
@@ -22,7 +49,19 @@ public class AIWeapon : MonoBehaviour
 
     public void ActivateWeapon()
     {
+        StartCoroutine(Equip());
+    }
+
+    IEnumerator Equip()
+    {
         animator.SetBool("Equip", true);
+        yield return new WaitForSeconds(0.5f);
+        while ( animator.GetCurrentAnimatorStateInfo(1).normalizedTime < 1.0f)
+        {
+            yield return null;
+        }
+        weaponIK.SetAimTransform(currentWeapon.raycastOrigin);
+        weaponActive = true;
     }
 
     public bool HasWeapon()
@@ -47,5 +86,11 @@ public class AIWeapon : MonoBehaviour
         {
             socketController.Attach(currentWeapon.transform, MeshSocketController.SocketID.RightHand);
         }
+    }
+
+    public void SetTarget(Transform target)
+    {
+        weaponIK.SetTargetTransform(target);
+        currentTarget = target;
     }
 }
