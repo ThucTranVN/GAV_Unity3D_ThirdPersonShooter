@@ -1,12 +1,15 @@
 using System;
-
-[Serializable]
-public class PlayerData
+namespace TPS
 {
-    public int id;
-    public int health;
-    public int damage;
-    public int strength;
-    public int ability;
-    public int inteligence;
+    [Serializable]
+    public class PlayerData
+    {
+        public int id;
+        public int health;
+        public int damage;
+        public int strength;
+        public int ability;
+        public int inteligence;
+    }
 }
+
