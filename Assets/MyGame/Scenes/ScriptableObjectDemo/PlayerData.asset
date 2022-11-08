@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData:
     id: 1
-    health: 100
-    damage: 10
-    strength: 9
-    ability: 8
-    inteligence: 7
+    health: 101
+    damage: 11
+    strength: 10
+    ability: 9
+    inteligence: 8
